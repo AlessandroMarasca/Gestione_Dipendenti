@@ -5,7 +5,7 @@ public class Credenziali {
 	String USER;
 	String PASSWORD;
 
-	public void Connessioni (String URL, String USER, String PASSWORD) {
+	public Credenziali (String URL, String USER, String PASSWORD) {
 	this.URL = URL;
 	this.USER = USER;
 	this.PASSWORD = PASSWORD;

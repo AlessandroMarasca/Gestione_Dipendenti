@@ -27,16 +27,32 @@ public class Main {
 	//ACCESSO MYSQL
 	private static final String URL = "jdbc:mysql://localhost:3306/db_azienda";
     private static final String USER = "root";
-    private static final String PASSWORD = "Alessandromarasca1994!";
+    private static final String PASSWORD = "Linkmarasca1994!";
     
-    public static void Main(String [] args) {
+    public static void main(String [] args) {
+    	int scelta = 9;
     	do {
-    		System.out.println("Benvenuto nella gestione dei dipendenti, che cosa desid");
-    		switch() {
+    		System.out.println("Benvenuto nella gestione dei dipendenti, che cosa desideri fare? \n1) Aggiungi nuovo dipendente \n2) Leggi elenco completo dei dipendenti \n3) Aggiorna dati dipendenti  \n4) Assegna dipendente ad un team \n5) Assegna dipendente ad un progetto \n6) Gestisci team \n7)Elimina dipendente \n8) Calcola bonus");
+    		switch (scelta) {
     		case 1:
-    			
+
+    		case 2:
+    		
+    		case 3:
+    		
+    		case 4:
+    		
+    		case 5:
+    		
+    		case 6:
+    		
+    		case 7:
+    		
+    		case 8:
+    		
+    		case 9:
     		}
-    	}
+    	} while (scelta > 9);
 
 	}
 }
