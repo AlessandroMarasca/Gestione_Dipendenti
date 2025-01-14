@@ -7,6 +7,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import java.sql.*;
+
 import java.sql.Connection;
 
 public class Employee {
@@ -53,6 +55,27 @@ public class Employee {
 	        e.printStackTrace();
 	    }
 	    return -1; // In caso di errore
+	}
+	public static void updateEmployee(int EmployeeID, String newnome,String newcognome,double newstipendio,connessioni conn1) {
+	    String sql = "UPDATE Dipendenti SET (nome = ?,cognome=?,stipendio=?) WHERE id_dipendenti = ?";
+	    try (Connection conn = DriverManager.getConnection(conn1.URL, conn1.USER, conn1.PASSWORD);
+	         PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+	        pstmt.setInt(1, EmployeeID);
+	        pstmt.setString(2, newnome);
+	        pstmt.setString(3, newcognome);
+	        pstmt.setDouble(3, newstipendio);
+
+	        int affectedRows = pstmt.executeUpdate();
+	        if (affectedRows > 0) {
+	            System.out.println("Dati aggiornati correttamente per il dipendente con ID " + EmployeeID);
+	        } else {
+	            System.out.println("Nessun dipendente aggiornato. Verificare l'ID.");
+	        }
+
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
 	}
 
 }

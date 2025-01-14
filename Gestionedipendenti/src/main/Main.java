@@ -34,17 +34,24 @@ public class Main {
     public static void main(String [] args) {
     	Scanner scanner=new Scanner(System.in);
     	int scelta=scanner.nextInt();
+    	int newemployeeID;
+    	
     	do {
     		System.out.println("Benvenuto nella gestione dei dipendenti, che cosa desideri fare? \n1) Aggiungi nuovo dipendente \n2) Leggi elenco completo dei dipendenti \n3) Aggiorna dati dipendenti  \n4) Assegna dipendente ad un team \n5) Assegna dipendente ad un progetto \n6) Gestisci team \n7)Elimina dipendente \n8) Calcola stipendi");
     		
     		switch (scelta) {
     		case 1:
-    			int newemployeeID=Employee.insertEmployee("Mario","Rossi",2000.00,conn1);
+    			 newemployeeID=Employee.insertEmployee("Mario","Rossi",2000.00,conn1);
     			System.out.println("Inserito nuovo dipendente con ID: " + newemployeeID);
     		case 2:
     		
     		case 3:
-    		
+    			System.out.println("INserisci id da cercare:");
+    			int employeeidfind=scanner.nextInt();
+    			
+    			if(employeeidfind.equals(newemployeeID)) {
+    				Employee.updateEmployee(employeidfind,"Simone","verdi",1000,conn1);	
+    			}
     		case 4:
     		
     		case 5:
