@@ -1,8 +1,8 @@
 package main;
 
 public class Developer extends Employee {
-	String linguaggiConosciuti;
-	String progettiAssegnati;
+	int IdLinguaggi;
+
 
 	// INIZIALIZZIAMO IL COSTRUTTORE
 	public Developer(int id, String nome, String cognome, double stipendioBase, String linguaggiConosciuti, String progettiAssegnati) {
