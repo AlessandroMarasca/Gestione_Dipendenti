@@ -1,5 +1,6 @@
 package main;
 import java.sql.*;
+import java.util.Scanner;
 public class Main {
 	/*
 	 * Sistema di Gestione dei Dipendenti Obiettivo del progetto: Creare un sistema
@@ -31,13 +32,15 @@ public class Main {
     static connessioni conn1=new connessioni("jdbc:mysql://localhost:3306/db_azienda","root","Simox00512!0");
     
     public static void main(String [] args) {
-    	int scelta = 1;
+    	Scanner scanner=new Scanner(System.in);
+    	int scelta=scanner.nextInt();
     	do {
     		System.out.println("Benvenuto nella gestione dei dipendenti, che cosa desideri fare? \n1) Aggiungi nuovo dipendente \n2) Leggi elenco completo dei dipendenti \n3) Aggiorna dati dipendenti  \n4) Assegna dipendente ad un team \n5) Assegna dipendente ad un progetto \n6) Gestisci team \n7)Elimina dipendente \n8) Calcola stipendi");
     		
     		switch (scelta) {
     		case 1:
-    			Employee.insertEmployee("Mario","Rossi",2000.00,conn1);
+    			int newemployeeID=Employee.insertEmployee("Mario","Rossi",2000.00,conn1);
+    			System.out.println("Inserito nuovo dipendente con ID: " + newemployeeID);
     		case 2:
     		
     		case 3:
@@ -54,6 +57,7 @@ public class Main {
     		
     		case 9:
     		}
+    		 
     	} while (scelta > 9);
 
 	}

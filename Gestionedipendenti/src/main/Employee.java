@@ -28,7 +28,7 @@ public class Employee {
 		
 	}
 	public static int insertEmployee(String name, String cognome, double stipendioBase,connessioni conn1) {
-	    String sql = "INSERT INTO EMPLOYEE (name, surname, cash) VALUES (?, ?, ?)";
+	    String sql = "INSERT INTO Dipendenti (nome, cognome,stipendio) VALUES (?, ?, ?)";
 	    try (Connection conn = DriverManager.getConnection(conn1.URL,conn1.USER,conn1.PASSWORD);
 	         PreparedStatement pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 
