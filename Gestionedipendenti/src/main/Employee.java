@@ -1,11 +1,7 @@
 package main;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
+
 
 //CLASSE MADRE
 public class Employee
@@ -14,23 +10,29 @@ public class Employee
 	String nome;
 	String cognome;
 	double stipendioBase;
+	int idTeam;
+	
 
-	public Employee(int id, String nome, String cognome, double stipendioBase)
+
+
+	public Employee(int id, String nome, String cognome, double stipendioBase, int idTeam)
 	{
 		this.id = id;
 		this.nome = nome;
 		this.cognome = cognome;
 		this.stipendioBase = stipendioBase;
+		this.idTeam = idTeam;
+		
 
 	}
 
 	public static void letturaDatiDipendenti(Credenziali credenziali)
 	{
-		String SELECT = "SELECT * FROM dipendenti";
+		String QUERY = "SELECT * FROM dipendenti";
 
-		try (Connection conn = DriverManager.getConnection(credenziali.URL, credenziali.USER, credenziali.PASSWORD);
+		try (Connection conn = credenziali.connessione();
 				Statement stmt = conn.createStatement();
-				ResultSet rs = stmt.executeQuery(SELECT);)
+				ResultSet rs = stmt.executeQuery(QUERY);)
 		{
 			while (rs.next())
 			{
@@ -48,4 +50,33 @@ public class Employee
 			e.printStackTrace();
 		}
 	}
+	
+	public static int inserisciNuovoDipendente(String nome, String cognome, double stipendioBase, int idTeam, Credenziali credenziali) {
+        String QUERY = "INSERT INTO dipendenti (nome, cognome, stipendio, id_team) VALUES (?, ?, ?, ?)";
+        try (Connection conn = credenziali.connessione();
+             PreparedStatement pstmt = conn.prepareStatement(QUERY, Statement.RETURN_GENERATED_KEYS)) {
+
+            pstmt.setString(1, nome);
+            pstmt.setString(2, cognome);
+            pstmt.setDouble(3, stipendioBase);
+            pstmt.setInt(4, idTeam);
+
+            int affectedRows = pstmt.executeUpdate();
+            if (affectedRows == 0) {
+                throw new SQLException("Creazione cliente fallita, nessuna riga aggiunta.");
+            }
+
+            // Recupero la chiave generata (ID auto-increment)
+            try (ResultSet generatedKeys = pstmt.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    return generatedKeys.getInt(1);
+                } else {
+                    throw new SQLException("Creazione cliente fallita, ID non recuperato.");
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return -1; // In caso di errore
+    }
 }

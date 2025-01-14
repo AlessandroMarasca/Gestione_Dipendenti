@@ -5,8 +5,8 @@ public class Manager extends Employee {
 	String teamGestito;
 	
 	
-	public Manager(int id, String nome, String cognome, double bonus, String teamGestito,double stipendioBase) {
-		super(id, nome, cognome, stipendioBase);
+	public Manager(int id, String nome, String cognome, double stipendio, int idTeam, double bonus, String teamGestito) {
+		super(id, nome, cognome, stipendio, idTeam);
 		this.bonus = bonus;
 		this.teamGestito = teamGestito;
 	}
