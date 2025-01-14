@@ -30,7 +30,13 @@ public class Main {
     private static final String PASSWORD = "Alessandromarasca1994!";
     
     public static void Main(String [] args) {
-	
+    	do {
+    		System.out.println("Benvenuto nella gestione dei dipendenti, che cosa desid");
+    		switch() {
+    		case 1:
+    			
+    		}
+    	}
 
 	}
 }
