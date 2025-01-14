@@ -1,5 +1,4 @@
 package main;
-import java.sql.*;
 public class Main {
 	/*
 	 * Sistema di Gestione dei Dipendenti Obiettivo del progetto: Creare un sistema
@@ -25,18 +24,9 @@ public class Main {
 	 * che sarà visto da tutte le persone del corso.
 	 */
 	//ACCESSO MYSQL
-	private static final String URL = "jdbc:mysql://localhost:3306/db_azienda";
-    private static final String USER = "root";
-    private static final String PASSWORD = "Alessandromarasca1994!";
-    
-    public static void Main(String [] args) {
-    	do {
-    		System.out.println("Benvenuto nella gestione dei dipendenti, che cosa desid");
-    		switch() {
-    		case 1:
-    			
-    		}
-    	}
-
+	
+    public static void main(String[] args) {
+    	
+     System.out.println("Errore");
 	}
 }

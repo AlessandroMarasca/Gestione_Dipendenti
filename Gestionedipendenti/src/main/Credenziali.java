@@ -1,22 +1,34 @@
 package main;
 
-public class Credenziali {
-	String URL;
-	String USER;
-	String PASSWORD;
+public class Credenziali
+{
+	String URL = "jdbc:mysql://localhost:3306/db_azienda";
+	String USER = "root";
+	String PASSWORD = "Edoardo#";
 
-	public void Connessioni (String URL, String USER, String PASSWORD) {
-	this.URL = URL;
-	this.USER = USER;
-	this.PASSWORD = PASSWORD;
+	public Credenziali()
+	{
 	}
-	public String getURL() {
+
+	public Credenziali(String URL, String USER, String PASSWORD)
+	{
+		this.URL = URL;
+		this.USER = USER;
+		this.PASSWORD = PASSWORD;
+	}
+
+	public String getURL()
+	{
 		return URL;
 	}
-	public String getUSER() {
+
+	public String getUSER()
+	{
 		return USER;
 	}
-	public String getPASSWORD() {
+
+	public String getPASSWORD()
+	{
 		return PASSWORD;
 	}
 }
