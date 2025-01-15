@@ -1,7 +1,7 @@
 package main;
 
 public class Credenziali {
-	String URL;
+	String URL ;
 	String USER;
 	String PASSWORD;
 
