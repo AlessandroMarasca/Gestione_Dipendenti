@@ -1,6 +1,8 @@
 package main;
+
 import java.sql.*;
 import java.util.*;
+
 public class Main {
 	/*
 	 * Sistema di Gestione dei Dipendenti Obiettivo del progetto: Creare un sistema
@@ -25,12 +27,12 @@ public class Main {
 	 * Le risposte a questa e-mail saranno pubblicate come risposta all’annuncio,
 	 * che sarà visto da tutte le persone del corso.
 	 */
-	//ACCESSO MYSQL
+	// ACCESSO MYSQL
 	private static final String URL = "jdbc:mysql://localhost:3306/db_azienda";
-    private static final String USER = "root";
-    private static final String PASSWORD = "Linkmarasca1994!";
-    
-    public static void main(String [] args) {
+	private static final String USER = "root";
+	private static final String PASSWORD = "Linkmarasca1994!";
+
+	public static void main(String [] args) {
     Credenziali credenziali = new Credenziali("jdbc:mysql://localhost:3306/db_azienda","root", "Linkmarasca1994!");
     	int scelta;
     	Scanner scanner = new Scanner(System.in);
@@ -51,7 +53,7 @@ public class Main {
     		case 6:
     		
     		case 7:
-
+    			Employee.eliminaDipendente(credenziali, scanner);
     		case 8:
     			
     		
