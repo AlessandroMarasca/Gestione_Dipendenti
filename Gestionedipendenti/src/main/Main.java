@@ -42,8 +42,8 @@ public class Main
 				System.out.print("Inserisci l'ID del team: ");
 				int idTeam = scanner.nextInt();
 
-				int newClientId = Employee.inserisciNuovoDipendente(nome, cognome, stipendio, idTeam, credenziali);
-				System.out.println("Inserito nuovo dipendente con ID: " + newClientId);
+				int nuovoIdDipendente = Employee.inserisciNuovoDipendente(nome, cognome, stipendio, idTeam, credenziali);
+				System.out.println("Inserito nuovo dipendente con ID: " + nuovoIdDipendente);
 
 				break;
 
