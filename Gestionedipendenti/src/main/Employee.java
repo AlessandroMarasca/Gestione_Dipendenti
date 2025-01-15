@@ -30,7 +30,7 @@ public class Employee {
 	}
 	
 	public static int assegnaDipendenteTeam(Scanner scanner,Credenziali credenziali) {
-		System.out.println("Inserisci id dipendente a cui vuoi assegnare un team");
+		System.out.println("Inserisci id dipendente a cui vuoi assegnare un team:");
 		int id=scanner.nextInt();
 		System.out.println("Inserisci id del team");
 		int id_team2=scanner.nextInt();
