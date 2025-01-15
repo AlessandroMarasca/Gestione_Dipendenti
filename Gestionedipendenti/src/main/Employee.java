@@ -109,7 +109,7 @@ public class Employee
         }
         return -1; // In caso di errore
     }
-}
+
 
 	public static int assegnaDipendenteTeam(Scanner scanner, Credenziali credenziali)
 	{
@@ -118,7 +118,7 @@ public class Employee
 		System.out.println("Inserisci id del team");
 		int id_team2 = scanner.nextInt();
 		String sql = "UPDATE dipendenti SET id_team2=? WHERE id_dipendenti=?";
-		try (Connection conn = DriverManager.getConnection(credenziali.URL, credenziali.USER, credenziali.PASSWORD);
+		try (Connection conn = credenziali.connessione();
 				PreparedStatement pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS))
 		{
 

@@ -23,7 +23,7 @@ public class Team {
 		System.out.println("A quale team vuoi assegnarlo?");
 		int id_team=scanner.nextInt();
 		String sql = "UPDATE progetti SET id_team=? WHERE id_progetto=?";
-		try (Connection conn = DriverManager.getConnection(credenziali.URL, credenziali.USER, credenziali.PASSWORD);
+		try (Connection conn = credenziali.connessione();
 				PreparedStatement pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS))
 		{
 
