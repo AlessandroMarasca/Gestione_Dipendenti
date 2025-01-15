@@ -25,6 +25,12 @@ public class Employee
 		
 
 	}
+	
+	/**
+     * Mostra la lista di tutti i records della tabella dipendenti.
+     *
+     * @param credenziali Apertura della connessione al DB
+     */
 
 	public static void letturaDatiDipendenti(Credenziali credenziali)
 	{
@@ -50,6 +56,17 @@ public class Employee
 			e.printStackTrace();
 		}
 	}
+	
+	/**
+     * Inserisce un nuovo dipendente nella tabella dipendenti.
+     *
+     * @param nome  Nome del dipendente
+     * @param cognome Cognome del dipendente
+     * @param stipendioBase Stipendio del dipendente
+     * @param idTeam Team a cui appartiene
+     * @param credenziali Apertura della connessione al DB
+     * @return L'ID generato per il nuovo dipendente
+     */
 	
 	public static int inserisciNuovoDipendente(String nome, String cognome, double stipendioBase, int idTeam, Credenziali credenziali) {
         String QUERY = "INSERT INTO dipendenti (nome, cognome, stipendio, id_team) VALUES (?, ?, ?, ?)";

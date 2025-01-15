@@ -23,7 +23,7 @@ public class Credenziali
 		this.PASSWORD = PASSWORD;
 	}
 	
-	//Metodo per l'aperture della connessione
+	//Metodo per l'apertura della connessione
 
 	public Connection connessione() throws SQLException {
 		return DriverManager.getConnection(URL, USER, PASSWORD);
