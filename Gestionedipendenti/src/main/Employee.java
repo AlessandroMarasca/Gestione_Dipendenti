@@ -1,6 +1,7 @@
 package main;
 
 import java.sql.*;
+import java.util.Scanner;
 
 
 //CLASSE MADRE
@@ -68,14 +69,26 @@ public class Employee
      * @return L'ID generato per il nuovo dipendente
      */
 	
-	public static int inserisciNuovoDipendente(String nome, String cognome, double stipendioBase, int idTeam, Credenziali credenziali) {
+	public static int inserisciNuovoDipendente(Credenziali credenziali, Scanner scanner) {
+		
+		System.out.print("Inserisci il nome del dipendente: ");
+		String nome = scanner.nextLine();
+
+		System.out.print("Inserisci il cognome del dipendente: ");
+		String cognome = scanner.nextLine();
+
+		System.out.print("Inserisci lo stipendio base: ");
+		double stipendio = scanner.nextDouble();
+
+		System.out.print("Inserisci l'ID del team: ");
+		int idTeam = scanner.nextInt();
         String QUERY = "INSERT INTO dipendenti (nome, cognome, stipendio, id_team) VALUES (?, ?, ?, ?)";
         try (Connection conn = credenziali.connessione();
              PreparedStatement pstmt = conn.prepareStatement(QUERY, Statement.RETURN_GENERATED_KEYS)) {
 
             pstmt.setString(1, nome);
             pstmt.setString(2, cognome);
-            pstmt.setDouble(3, stipendioBase);
+            pstmt.setDouble(3, stipendio);
             pstmt.setInt(4, idTeam);
 
             int affectedRows = pstmt.executeUpdate();

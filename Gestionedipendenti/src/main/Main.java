@@ -30,19 +30,8 @@ public class Main
 			switch (scelta)
 			{
 			case 1:
-				System.out.print("Inserisci il nome del dipendente: ");
-				String nome = scanner.nextLine();
 
-				System.out.print("Inserisci il cognome del dipendente: ");
-				String cognome = scanner.nextLine();
-
-				System.out.print("Inserisci lo stipendio base: ");
-				double stipendio = scanner.nextDouble();
-
-				System.out.print("Inserisci l'ID del team: ");
-				int idTeam = scanner.nextInt();
-
-				int nuovoIdDipendente = Employee.inserisciNuovoDipendente(nome, cognome, stipendio, idTeam, credenziali);
+				int nuovoIdDipendente = Employee.inserisciNuovoDipendente(credenziali, scanner);
 				System.out.println("Inserito nuovo dipendente con ID: " + nuovoIdDipendente);
 
 				break;
