@@ -29,4 +29,5 @@ public class Credenziali
 	public Connection connessione() throws SQLException {
 		return DriverManager.getConnection(URL, USER, PASSWORD);
 	}
+
 }

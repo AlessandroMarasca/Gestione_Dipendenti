@@ -6,9 +6,11 @@ public class Developer extends Employee {
 
 
 	// INIZIALIZZIAMO IL COSTRUTTORE
+
 	public Developer(int id, String nome, String cognome, double stipendio, int idTeam, int IdLinguaggi, int progettoAssegnato) {
 		super(id, nome, cognome, stipendio, idTeam);
         
+
 	}
 
 }
