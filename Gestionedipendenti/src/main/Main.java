@@ -1,64 +1,92 @@
 package main;
-import java.sql.*;
-import java.util.*;
-public class Main {
-	/*
-	 * Sistema di Gestione dei Dipendenti Obiettivo del progetto: Creare un sistema
-	 * per gestire i dipendenti di un'azienda, sfruttando JDBC per interagire con un
-	 * database. Il sistema consente di eseguire operazioni CRUD sui dipendenti,
-	 * assegnarli a progetti, gestire team e calcolare gli stipendi con eventuali
-	 * bonus.
-	 * 
-	 * Crea un'applicazione per gestire i dipendenti di un'azienda utilizzando JDBC
-	 * per connettersi a un database. Utilizza l'ereditarietà per rappresentare
-	 * diversi tipi di dipendenti:
-	 * 
-	 * Employee (classe base): rappresenta un dipendente generico, con attributi
-	 * come id, nome, cognome, e stipendioBase. Manager (classe derivata):
-	 * rappresenta un manager, con attributi aggiuntivi come bonus e teamGestito.
-	 * Developer (classe derivata): rappresenta uno sviluppatore, con attributi come
-	 * linguaggiConosciuti e progettiAssegnati. Il database deve contenere una
-	 * tabella per i dipendenti e tabelle correlate per i progetti e i team. Deve
-	 * essere possibile aggiungere, modificare, eliminare dipendenti, assegnarli a
-	 * progetti e calcolare gli stipendi (considerando eventuali bonus).
-	 * 
-	 * Le risposte a questa e-mail saranno pubblicate come risposta all’annuncio,
-	 * che sarà visto da tutte le persone del corso.
-	 */
-	//ACCESSO MYSQL
-	private static final String URL = "jdbc:mysql://localhost:3306/db_azienda";
-    private static final String USER = "root";
-    private static final String PASSWORD = "Linkmarasca1994!";
-    
-    public static void main(String [] args) {
-    Credenziali credenziali = new Credenziali("jdbc:mysql://localhost:3306/db_azienda","root", "Linkmarasca1994!");
-    	int scelta;
-    	Scanner scanner = new Scanner(System.in);
-    	do {
-    		System.out.println("Benvenuto nella gestione dei dipendenti, che cosa desideri fare? \n1) Aggiungi nuovo dipendente \n2) Leggi elenco completo dei dipendenti \n3) Aggiorna dati dipendenti  \n4) Assegna dipendente ad un team \n5) Assegna dipendente ad un progetto \n6) Gestisci team \n7)Elimina dipendente \n8) Calcola stipendi");
-    		scelta = scanner.nextInt();
-    		switch (scelta) {
-    		case 1:
 
-    		case 2:
-    		Employee.letturaDatiDipendenti(credenziali);
-    		case 3:
-    		
-    		case 4:
-    		
-    		case 5:
-    		
-    		case 6:
-    		
-    		case 7:
+import java.util.Scanner;
 
-    		case 8:
-    			
-    		
-    		case 9:
-    		}
-    	} while (scelta > 9);
-    	
-    	System.exit(scelta);
+public class Main
+{
+	public static void main(String[] args)
+	{
+		Scanner scanner = new Scanner(System.in);
+
+		// Istanza oggetto connessione al DB
+
+		Credenziali credenziali = new Credenziali();
+
+		boolean avvio = true;
+
+		// Avvio del programma
+
+		System.out.println("Sistema di Gestione Dipendenti");
+		while (avvio)
+		{
+			System.out.println("Benvenuto nella gestione dei dipendenti, che cosa desideri fare? \n1) Aggiungi nuovo dipendente \n2) Leggi elenco completo dei dipendenti \n3) Aggiorna dati dipendenti  \n4) Assegna dipendente ad un team \n5) Assegna dipendente ad un progetto \n6) Gestisci team \n7)Elimina dipendente \n8) Calcola stipendi \n9Esci");
+
+			System.out.print("Inserisci la tua scelta: ");
+			int scelta = scanner.nextInt();
+			scanner.nextLine();
+
+			switch (scelta)
+			{
+			case 1:
+
+				int nuovoIdDipendente = Employee.inserisciNuovoDipendente(credenziali, scanner);
+				System.out.println("Inserito nuovo dipendente con ID: " + nuovoIdDipendente);
+
+				break;
+
+			case 2:
+				System.out.println("Elenco dei dipendenti:");
+				Employee.letturaDatiDipendenti(credenziali);
+				break;
+
+			case 3:
+				System.out.print("Inserisci l'ID del dipendente da aggiornare: ");
+				int nuovoId = scanner.nextInt();
+				scanner.nextLine();
+
+				System.out.print("Inserisci il nuovo nome: ");
+				String nuovoNome = scanner.nextLine();
+
+				System.out.print("Inserisci il nuovo cognome: ");
+				String nuovoCognome = scanner.nextLine();
+
+				System.out.print("Inserisci stipendio base: ");
+				double nuovoStipendio = scanner.nextDouble();
+
+				System.out.print("Inserisci il nuovo ID del team: ");
+				int nuovoIdTeam = scanner.nextInt();
+
+				// --> metodo per aggiornare
+				break;
+
+			case 4:
+				Employee.assegnaDipendenteTeam(scanner, credenziali);
+				
+				break;
+			case 5:
+				break;
+			case 6:
+				break;
+			case 7:
+				System.out.print("Inserisci l'ID del dipendente da eliminare: ");
+				int rimuoviId = scanner.nextInt();
+
+				// --> metodo per cancellare
+				break;
+			case 8:
+				break;
+
+			case 9:
+
+				System.out.println("Uscita dal sistema. Arrivederci!");
+				avvio = false;
+				break;
+
+			default:
+				System.out.println("Scelta non valida. Riprova.");
+			}
+		}
+
+		scanner.close();
 	}
 }

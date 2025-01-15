@@ -1,22 +1,33 @@
 package main;
 
-public class Credenziali {
-	String URL ;
-	String USER;
-	String PASSWORD;
+import java.sql.*;
 
-	public Credenziali (String URL, String USER, String PASSWORD) {
-	this.URL = URL;
-	this.USER = USER;
-	this.PASSWORD = PASSWORD;
+public class Credenziali
+{
+	private String URL = "jdbc:mysql://localhost:3306/db_azienda";
+	private String USER = "root";
+	private String PASSWORD = "Edoardo#";
+
+	//Costruttore vuoto per istanziare le credenziali
+	
+	public Credenziali()
+	{
+		
 	}
-	public String getURL() {
-		return URL;
+
+	//Costruttore per istanziare nuove credenziali
+	
+	public Credenziali(String URL, String USER, String PASSWORD)
+	{
+		this.URL = URL;
+		this.USER = USER;
+		this.PASSWORD = PASSWORD;
 	}
-	public String getUSER() {
-		return USER;
+	
+	//Metodo per l'apertura della connessione
+
+	public Connection connessione() throws SQLException {
+		return DriverManager.getConnection(URL, USER, PASSWORD);
 	}
-	public String getPASSWORD() {
-		return PASSWORD;
-	}
+
 }
