@@ -62,8 +62,7 @@ public class Main
 				break;
 
 			case 4:
-				System.out.print("Inserisci l'ID del dipendente da eliminare: ");
-				int rimuoviId = scanner.nextInt();
+				Linguaggi.assegnaLinguaggioDev(credenziali, scanner);
 
 				// --> metodo per cancellare
 				break;

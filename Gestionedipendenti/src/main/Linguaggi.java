@@ -13,30 +13,36 @@ public class Linguaggi
 	 * @return L'ID generato per il nuovo dipendente
 	 */
 
-	public void assegnaLinguaggioDev(Credenziali credenziali, Scanner scanner)
+	public static void assegnaLinguaggioDev(Credenziali credenziali, Scanner scanner)
 	{
-		System.out.println("Inserisci l'ID del team:");
+		System.out.print("Inserisci l'ID del dipendente: ");
 		int id = scanner.nextInt();
 		scanner.nextLine();
-		System.out.println("Nuovo ruolo del dipendente: \n1. Dipendente \n2. Sviluppatore \n3. Manager  ");
-		int nuovoRuoloInt = scanner.nextInt();
+		
+		System.out.print("Inserisci l'ID del linguaggio: ");
+		int idLinguaggio = scanner.nextInt();
 		scanner.nextLine();
-		String nuovoRuolo = "";
+		
+		System.out.print("Inserisci livello di esperienza: ");
+		int esperienza = scanner.nextInt();
+		scanner.nextLine();
 
-		String query = "INSERT INTO linguaggi_developer (id_developer, id_linguaggio, esperienza) VALUES (?,?,?);";
+		String QUERY = "INSERT INTO linguaggi_developer (id_developer, id_linguaggio, esperienza) VALUES (?,?,?);";
 
-		try (Connection conn = credenziali.connessione(); PreparedStatement pstmt = conn.prepareStatement(query))
+		try (Connection conn = credenziali.connessione(); PreparedStatement pstmt = conn.prepareStatement(QUERY))
 		{
-			pstmt.setString(1, nuovoRuolo);
-			pstmt.setInt(2, id);
+			pstmt.setInt(1, id);
+			pstmt.setInt(2, idLinguaggio);
+			pstmt.setInt(3, esperienza);
+			
 			int affectedRows = pstmt.executeUpdate();
 
 			if (affectedRows == 0)
 			{
-				throw new SQLException("Modifica dipendente fallita, nessuna riga aggiunta.");
+				throw new SQLException("Inserimento fallito, nessuna riga aggiunta.");
 			} else
 			{
-				System.out.println("Dipendente modificato con successo");
+				System.out.println("Linguaggio assegnato con successo al dipendente.");
 			}
 
 		} catch (SQLException e)

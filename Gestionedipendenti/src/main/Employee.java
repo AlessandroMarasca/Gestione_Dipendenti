@@ -93,7 +93,7 @@ public class Employee
 
             int affectedRows = pstmt.executeUpdate();
             if (affectedRows == 0) {
-                throw new SQLException("Creazione cliente fallita, nessuna riga aggiunta.");
+                throw new SQLException("Creazione dipendente fallita, nessuna riga aggiunta.");
             }
 
             // Recupero la chiave generata (ID auto-increment)
@@ -101,7 +101,7 @@ public class Employee
                 if (generatedKeys.next()) {
                     return generatedKeys.getInt(1);
                 } else {
-                    throw new SQLException("Creazione cliente fallita, ID non recuperato.");
+                    throw new SQLException("Creazione dipendente fallita, ID non recuperato.");
                 }
             }
         } catch (SQLException e) {
