@@ -1,21 +1,17 @@
 package main;
-
+import java.sql.*;
 public class Credenziali {
-<<<<<<< HEAD
+
 	String URL="jdbc:mysql://localhost:3306/db_azienda";
 	String USER="root";
 	String PASSWORD="Marcoluca123!";
-=======
-	String URL ;
-	String USER;
-	String PASSWORD;
->>>>>>> refs/remotes/origin/master
+	
+	public Credenziali()
+	{
+	}
 
-<<<<<<< HEAD
-	public  Credenziali (String URL, String USER, String PASSWORD) {
-=======
 	public Credenziali (String URL, String USER, String PASSWORD) {
->>>>>>> refs/remotes/origin/master
+
 	this.URL = URL;
 	this.USER = USER;
 	this.PASSWORD = PASSWORD;
@@ -29,4 +25,9 @@ public class Credenziali {
 	public String getPASSWORD() {
 		return PASSWORD;
 	}
+	//Metodo per l'apertura della connessione
+
+		public Connection connessione() throws SQLException {
+			return DriverManager.getConnection(URL, USER, PASSWORD);
+		}
 }
