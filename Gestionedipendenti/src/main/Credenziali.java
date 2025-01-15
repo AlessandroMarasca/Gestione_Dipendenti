@@ -1,11 +1,11 @@
 package main;
 
 public class Credenziali {
-	String URL;
-	String USER;
-	String PASSWORD;
+	String URL="jdbc:mysql://localhost:3306/db_azienda";
+	String USER="root";
+	String PASSWORD="Marcoluca123!";
 
-	public void Connessioni (String URL, String USER, String PASSWORD) {
+	public  Credenziali (String URL, String USER, String PASSWORD) {
 	this.URL = URL;
 	this.USER = USER;
 	this.PASSWORD = PASSWORD;
