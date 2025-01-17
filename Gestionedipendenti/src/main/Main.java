@@ -72,26 +72,27 @@ public class Main
 
 				Linguaggi.assegnaLinguaggioDev(credenziali, scanner);
 				break;
-
 			case 8:
-
 				Employee.eliminaDipendente(credenziali, scanner);
 				break;
-
+			case 9:
+			
+				break;
 			case 10:
 
 				Progetti.inserisciProgetto(credenziali, scanner);
 				break;
-
 			case 11:
 				Manager.assegnaDipendenteManager(credenziali, scanner);
 				break;
 			case 12:
-				Manager.visualizzaManager(credenziali, scanner);
+				Manager.visualizzaManager(credenziali);
 				break;
 			case 13:
 				System.out.println("Uscita dal sistema. Arrivederci!");
 				avvio = false;
+			case 14:
+				Manager.calcolaBonus(credenziali, scanner);
 				break;
 
 			default:

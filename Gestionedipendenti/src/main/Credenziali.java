@@ -6,7 +6,7 @@ public class Credenziali
 {
 	private String URL = "jdbc:mysql://localhost:3306/db_azienda";
 	private String USER = "root";
-	private String PASSWORD = "Edoardo#";
+	private String PASSWORD = "Linkmarasca1994!";
 
 	//Costruttore vuoto per istanziare le credenziali
 	

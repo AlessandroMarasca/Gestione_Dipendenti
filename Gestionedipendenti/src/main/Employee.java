@@ -9,7 +9,7 @@ public class Employee
 	int id;
 	String nome;
 	String cognome;
-	double stipendioBase;
+	static double stipendioBase;
 	int idTeam;
 
 	public Employee(int id, String nome, String cognome, double stipendioBase, int idTeam)
