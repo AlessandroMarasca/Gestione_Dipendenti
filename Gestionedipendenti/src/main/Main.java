@@ -88,7 +88,21 @@ public class Main
 
 				Progetti.inserisciProgetto(credenziali, scanner);
 				break;
+
+			case 15:
+
+				System.out.print("Le tabelle verrano eliminate definitivamente. Per continuare premi 1: ");
+				int conferma = scanner.nextInt();
+				scanner.nextLine();
 				
+				if (conferma == 1)
+				{
+					GestioneDB.dropTabelle(credenziali);
+				} else continue;
+
+				break;
+
+
 			case 11:
 				
 				Manager.assegnaDipendenteManager(credenziali, scanner);
