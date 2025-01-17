@@ -76,6 +76,9 @@ public class Main
 
 				Employee.eliminaDipendente(credenziali, scanner);
 				break;
+			case 9:
+				Team_Progetti.letturaTeamProgetto(credenziali, scanner);
+				break;
 
 			case 10:
 
