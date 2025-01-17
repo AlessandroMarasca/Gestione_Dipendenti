@@ -66,7 +66,7 @@ public class Main
 
 				Team.assegnaTeamProgetto(scanner, credenziali);
 				break;
-				
+
 			case 7:
 
 				Linguaggi.assegnaLinguaggioDev(credenziali, scanner);
@@ -80,6 +80,18 @@ public class Main
 			case 10:
 
 				Progetti.inserisciProgetto(credenziali, scanner);
+				break;
+			case 9:
+
+				System.out.print("Le tabelle verrano eliminate definitivamente. Per continuare premi 1: ");
+				int conferma = scanner.nextInt();
+				scanner.nextLine();
+				
+				if (conferma == 1)
+				{
+					GestioneDB.dropTabelle(credenziali);
+				} else continue;
+
 				break;
 
 			case 11:
