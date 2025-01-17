@@ -46,7 +46,7 @@ public class Team {
 	
 	
 	
-	public static void assegnaTeamProgetto(Scanner scanner, Credenziali credenziali) {
+	public static void assegnaTeamProgetto(Credenziali credenziali, Scanner scanner) {
 		
 		System.out.println("Ecco la lista completa dei team.");
 		letturaDatiTeam(credenziali);

@@ -115,7 +115,7 @@ public class Employee
 	 * @param scanner passiamo lo scanner come parametro
 	 */
 
-	public static void assegnaDipendenteTeam(Scanner scanner, Credenziali credenziali)
+	public static void assegnaDipendenteTeam(Credenziali credenziali, Scanner scanner)
 	{
 		System.out.print("Inserisci id dipendente a cui vuoi assegnare un team: ");
 		int id = scanner.nextInt();

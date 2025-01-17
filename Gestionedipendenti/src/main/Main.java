@@ -24,7 +24,8 @@ public class Main
 					+ "3) Leggi elenco completo dei developers\n" + "4) Assegna ruolo developer a un dipendente\n"
 					+ "5) Assegna dipendente ad un team\n" + "6) Assegna team ad un progetto\n"
 					+ "7) Assegna linguaggio dev\n" + "8) Elimina dipendente\n" + "9) Calcola stipendi\n"
-					+ "10) Aggiungi nuovo progetto\n"+ "11) Assegna ruolo manager" +"12) Visualizza elenco manager"+ "13)Esci");
+					+ "10) Aggiungi nuovo progetto\n" + "11) Assegna ruolo manager" + "12) Visualizza elenco manager"
+					+ "13)Esci");
 
 			System.out.print("\nInserisci la tua scelta: ");
 			int scelta = scanner.nextInt();
@@ -57,47 +58,54 @@ public class Main
 
 			case 5:
 
-				Employee.assegnaDipendenteTeam(scanner, credenziali);
+				Employee.assegnaDipendenteTeam(credenziali, scanner);
 				break;
 
 			case 6:
 
-				Team.assegnaTeamProgetto(scanner, credenziali);
+				Team.assegnaTeamProgetto(credenziali, scanner);
 				break;
-				
+
 			case 7:
 
-				Employee.eliminaDipendente(credenziali, scanner);				
+				Employee.eliminaDipendente(credenziali, scanner);
 				// --> metodo per cancellare
 
 				Linguaggi.assegnaLinguaggioDev(credenziali, scanner);
 				break;
+				
 			case 8:
+				
 				Employee.eliminaDipendente(credenziali, scanner);
 				break;
+				
 			case 9:
-<<<<<<< HEAD
-			
-				break;
-=======
+
 				Team_Progetti.letturaTeamProgetto(credenziali, scanner);
 				break;
 
->>>>>>> branch 'development' of https://github.com/AlessandroMarasca/Gestione_Dipendenti
 			case 10:
 
 				Progetti.inserisciProgetto(credenziali, scanner);
 				break;
+				
 			case 11:
+				
 				Manager.assegnaDipendenteManager(credenziali, scanner);
 				break;
+				
 			case 12:
+				
 				Manager.visualizzaManager(credenziali);
 				break;
+				
 			case 13:
+				
 				System.out.println("Uscita dal sistema. Arrivederci!");
 				avvio = false;
+				
 			case 14:
+				
 				Manager.calcolaBonus(credenziali, scanner);
 				break;
 
