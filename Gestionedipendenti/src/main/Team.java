@@ -87,6 +87,10 @@ public class Team {
 	
 public static void modificaTeamProgetto(Scanner scanner, Credenziali credenziali) {
 		
+		System.out.println("Ecco la lista completa dei team.");
+		letturaDatiTeam(credenziali);
+		System.out.println("Ecco la lista completa dei progetti");
+		Progetti.letturaDatiProgetto(credenziali);
 		System.out.print("Seleziona un progetto: ");
 		int id_progetto=scanner.nextInt();
 		scanner.nextLine();
