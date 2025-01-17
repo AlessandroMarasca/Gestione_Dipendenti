@@ -177,5 +177,36 @@ public class Employee
 		}
 
 	}
+	
+	public static void modificaStipendio(Credenziali credenziali, Scanner scanner)
+	{
+		
+	System.out.print("A quale dipendente vuoi modificare stipendio? Inserire id:");
+	int id = scanner.nextInt();
+	System.out.print("Inserisci cifra nuovo stipendio");
+	int stipendio= scanner.nextInt();
+	String sql = "UPDATE dipendenti SET stipendio=? WHERE id=?";
+	try (Connection conn = credenziali.connessione();
+			PreparedStatement pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS))
+	{
 
+		pstmt.setInt(1, stipendio);
+		pstmt.setInt(2, id);
+		int affectedRows = pstmt.executeUpdate();
+		if (affectedRows > 0)
+		{
+			System.out.println("Stipendio modificato correttamente per dipendente con ID " + id );
+		} else
+		{
+			System.out.println("Nessun dipendente trovato. Verificare l'ID.");
+		}
+
+	} catch (SQLException e)
+	{
+		e.printStackTrace();
+	}
+
+	
+
+	}
 }
