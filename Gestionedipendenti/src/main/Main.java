@@ -20,12 +20,13 @@ public class Main
 		while (avvio)
 		{
 			System.out.println("\nBenvenuto nella gestione dei dipendenti, che cosa desideri fare?\n"
-					+ "1) Aggiungi nuovo dipendente\n" + "2) Leggi elenco completo dei dipendenti\n" + "3) Leggi elenco completo dei developers\n"
-					+ "4) Assegna ruolo developer a un dipendente\n" + "5) Assegna dipendente ad un team\n"
-					+ "6) Assegna team ad un progetto\n" + "8) Elimina dipendente\n"
-					+ "9) Calcola stipendi\n" + "10) Aggiungi nuovo progetto\n" + "11)Esci");
-			//"4) Aggiorna dati dipendenti\n"
-			//"7) Gestisci team\n"
+					+ "1) Aggiungi nuovo dipendente\n" + "2) Leggi elenco completo dei dipendenti\n"
+					+ "3) Leggi elenco completo dei developers\n" + "4) Assegna ruolo developer a un dipendente\n"
+					+ "5) Assegna dipendente ad un team\n" + "6) Assegna team ad un progetto\n"
+					+ "7) Assegna linguaggio dev\n" + "8) Elimina dipendente\n" + "9) Calcola stipendi\n"
+					+ "10) Aggiungi nuovo progetto\n" + "11)Esci");
+			// "4) Aggiorna dati dipendenti\n"
+			// "7) Gestisci team\n"
 
 			System.out.print("\nInserisci la tua scelta: ");
 			int scelta = scanner.nextInt();
@@ -40,43 +41,48 @@ public class Main
 				break;
 
 			case 2:
-				
+
 				System.out.println("Elenco dei dipendenti:");
 				Employee.letturaDatiDipendenti(credenziali);
 				break;
 
 			case 3:
-				
+
 				System.out.println("Elenco dei developers:");
 				Developer.visualizzaDevelopers(credenziali, scanner);
 				break;
 
 			case 4:
-				
+
 				Developer.assegnaDipendenteDev(credenziali, scanner);
 				break;
-				
+
 			case 5:
-				
+
 				Employee.assegnaDipendenteTeam(scanner, credenziali);
 				break;
-				
+
 			case 6:
-				
+
 				Team.assegnaTeamProgetto(scanner, credenziali);
 				break;
+
 			case 7:
-				Employee.eliminaDipendente(credenziali, scanner);				
-				// --> metodo per cancellare
+
+				Linguaggi.assegnaLinguaggioDev(credenziali, scanner);
 				break;
 
-			case 8:	
+			case 8:
+
+
 				Employee.eliminaDipendente(credenziali, scanner);
 				break;
+
 				
 			case 9:
 				
 				
+
 			case 10:
 
 				Progetti.inserisciProgetto(credenziali, scanner);
