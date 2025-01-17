@@ -19,9 +19,14 @@ public class Main
 		System.out.println("Sistema di Gestione Dipendenti");
 		while (avvio)
 		{
-			System.out.println("Benvenuto nella gestione dei dipendenti, che cosa desideri fare? \n1) Aggiungi nuovo dipendente \n2) Leggi elenco completo dei dipendenti \n3) Aggiorna dati dipendenti  \n4) Assegna dipendente ad un team \n5) Assegna dipendente ad un progetto \n6) Gestisci team \n7)Elimina dipendente \n8) Calcola stipendi \n9Esci");
+			System.out.println("\nBenvenuto nella gestione dei dipendenti, che cosa desideri fare?\n"
+					+ "1) Aggiungi nuovo dipendente\n" + "2) Leggi elenco completo dei dipendenti\n"
+					+ "3) Leggi elenco completo dei developers\n" + "4) Assegna ruolo developer a un dipendente\n"
+					+ "5) Assegna dipendente ad un team\n" + "6) Assegna team ad un progetto\n"
+					+ "7) Assegna linguaggio dev\n" + "8) Elimina dipendente\n" + "9) Calcola stipendi\n"
+					+ "10) Aggiungi nuovo progetto\n"+ "11) Assegna ruolo manager" +"12) Visualizza elenco manager"+ "13)Esci");
 
-			System.out.print("Inserisci la tua scelta: ");
+			System.out.print("\nInserisci la tua scelta: ");
 			int scelta = scanner.nextInt();
 			scanner.nextLine();
 
@@ -31,51 +36,60 @@ public class Main
 
 				int nuovoIdDipendente = Employee.inserisciNuovoDipendente(credenziali, scanner);
 				System.out.println("Inserito nuovo dipendente con ID: " + nuovoIdDipendente);
-
 				break;
 
 			case 2:
+
 				System.out.println("Elenco dei dipendenti:");
 				Employee.letturaDatiDipendenti(credenziali);
 				break;
 
 			case 3:
-				System.out.print("Inserisci l'ID del dipendente da aggiornare: ");
-				int nuovoId = scanner.nextInt();
-				scanner.nextLine();
 
-				System.out.print("Inserisci il nuovo nome: ");
-				String nuovoNome = scanner.nextLine();
-
-				System.out.print("Inserisci il nuovo cognome: ");
-				String nuovoCognome = scanner.nextLine();
-
-				System.out.print("Inserisci stipendio base: ");
-				double nuovoStipendio = scanner.nextDouble();
-
-				System.out.print("Inserisci il nuovo ID del team: ");
-				int nuovoIdTeam = scanner.nextInt();
-
-				// --> metodo per aggiornare
+				System.out.println("Elenco dei developers:");
+				Developer.visualizzaDevelopers(credenziali, scanner);
 				break;
 
 			case 4:
-				Employee.assegnaDipendenteTeam(scanner, credenziali);
-				
+
+				Developer.assegnaDipendenteDev(credenziali, scanner);
 				break;
+
 			case 5:
+
+				Employee.assegnaDipendenteTeam(scanner, credenziali);
 				break;
+
 			case 6:
+
+				Team.assegnaTeamProgetto(scanner, credenziali);
 				break;
+				
 			case 7:
+
 				Employee.eliminaDipendente(credenziali, scanner);				
 				// --> metodo per cancellare
+
+				Linguaggi.assegnaLinguaggioDev(credenziali, scanner);
 				break;
+
 			case 8:
+
+				Employee.eliminaDipendente(credenziali, scanner);
 				break;
 
-			case 9:
+			case 10:
 
+				Progetti.inserisciProgetto(credenziali, scanner);
+				break;
+
+			case 11:
+				Manager.assegnaDipendenteManager(credenziali, scanner);
+				break;
+			case 12:
+				Manager.visualizzaManager(credenziali, scanner);
+				break;
+			case 13:
 				System.out.println("Uscita dal sistema. Arrivederci!");
 				avvio = false;
 				break;
