@@ -76,8 +76,14 @@ public class Main
 				Employee.eliminaDipendente(credenziali, scanner);
 				break;
 			case 9:
+<<<<<<< HEAD
 			
 				break;
+=======
+				Team_Progetti.letturaTeamProgetto(credenziali, scanner);
+				break;
+
+>>>>>>> branch 'development' of https://github.com/AlessandroMarasca/Gestione_Dipendenti
 			case 10:
 
 				Progetti.inserisciProgetto(credenziali, scanner);

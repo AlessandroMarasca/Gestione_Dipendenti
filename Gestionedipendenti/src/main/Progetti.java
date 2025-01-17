@@ -43,4 +43,26 @@ public class Progetti
 			e.printStackTrace();
 		}
 	}
+	public static void letturaDatiProgetto(Credenziali credenziali)
+	{
+		String QUERY = "SELECT * FROM progetti";
+
+		try (Connection conn = credenziali.connessione();
+				Statement stmt = conn.createStatement();
+				ResultSet rs = stmt.executeQuery(QUERY);)
+		{
+			while (rs.next())
+			{
+				int id_progetto = rs.getInt("id_progetto");
+				String nome = rs.getString("nome");
+				String scadenza = rs.getString("scadenza");
+
+				System.out.printf("id: %d | nome: %s | cognome: %s | stipendio: %.2f\n", id_progetto, nome,scadenza);
+
+			}
+		} catch (SQLException e)
+		{
+			e.printStackTrace();
+		}
+	}
 }

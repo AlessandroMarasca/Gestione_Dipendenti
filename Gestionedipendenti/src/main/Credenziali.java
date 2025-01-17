@@ -6,7 +6,11 @@ public class Credenziali
 {
 	private String URL = "jdbc:mysql://localhost:3306/db_azienda";
 	private String USER = "root";
+<<<<<<< HEAD
 	private String PASSWORD = "Linkmarasca1994!";
+=======
+	private String PASSWORD = "Marcoluca123!";
+>>>>>>> branch 'development' of https://github.com/AlessandroMarasca/Gestione_Dipendenti
 
 	//Costruttore vuoto per istanziare le credenziali
 	
