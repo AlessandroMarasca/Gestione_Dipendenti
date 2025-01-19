@@ -5,25 +5,15 @@ import java.util.Scanner;
 
 public class Developer extends Employee
 {
-	int IdLinguaggi;
-	int progettoAssegnato;
-
-	// INIZIALIZZIAMO IL COSTRUTTORE
-
-	public Developer(int id, String nome, String cognome, double stipendio, int idTeam, int IdLinguaggi,
-			int progettoAssegnato)
-	{
-		super(id, nome, cognome, stipendio, idTeam);
-	}
 	
 	/**
 	 * Metodo che assegna il ruolo di developer ad un dipendente
 	 *
-	 * @param credenziali   Apertura della connessione al DB
+	 * @param conn  Apertura della connessione al DB
 	 * @param scanner passiamo lo scanner come parametro
 	 */
 
-	public static void assegnaDipendenteDev(Credenziali credenziali, Scanner scanner)
+	public static void assegnaDipendenteDev(Connection conn, Scanner scanner)
 	{
 		System.out.print("Inserisci l'ID del dipendente developer: ");
 		int id = scanner.nextInt();
@@ -31,7 +21,7 @@ public class Developer extends Employee
 
 		String QUERY = "INSERT INTO developers (id_dipendente) VALUES (?);";
 
-		try (Connection conn = credenziali.connessione(); PreparedStatement pstmt = conn.prepareStatement(QUERY))
+		try ( PreparedStatement pstmt = conn.prepareStatement(QUERY))
 		{
 			pstmt.setInt(1, id);
 
@@ -59,14 +49,14 @@ public class Developer extends Employee
 	 * @param scanner passiamo lo scanner come parametro
 	 */
 
-	public static void visualizzaDevelopers(Credenziali credenziali, Scanner scanner)
+	public static void visualizzaDevelopers(Connection conn, Scanner scanner)
 	{
 
-		String QUERY = "SELECT dipendenti.id_dipendente, dipendenti.nome, dipendenti.cognome,"
+		String QUERY = "SELECT dipendenti.id, dipendenti.nome, dipendenti.cognome,"
 				+ "dipendenti.stipendio," + "dipendenti.id_team" + " FROM developers "
-				+ "INNER JOIN dipendenti ON developers.id_dipendente = dipendenti.id_dipendente;";
+				+ "INNER JOIN dipendenti ON developers.id_dipendente = dipendenti.id;";
 
-		try (Connection conn = credenziali.connessione();
+		try (
 				Statement stmt = conn.createStatement();
 				ResultSet rs = stmt.executeQuery(QUERY);)
 		{

@@ -8,24 +8,15 @@ import java.sql.Statement;
 import java.util.Scanner;
 
 public class Manager extends Employee {
-	double bonus;
-	String teamGestito;
 
-	public Manager(int id, String nome, String cognome, double stipendio, int idTeam, double bonus,
-			String teamGestito) {
-		super(id, nome, cognome, stipendio, idTeam);
-		this.bonus = bonus;
-		this.teamGestito = teamGestito;
-	}
-
-	public static void assegnaDipendenteManager(Credenziali credenziali, Scanner scanner) {
+	public static void assegnaDipendenteManager(Connection conn, Scanner scanner) {
 		System.out.print("Inserisci l'ID del dipendente manager: ");
 		int id = scanner.nextInt();
 		scanner.nextLine();
 
 		String QUERY = "INSERT INTO manager (id_dipendente) VALUES (?);";
 
-		try (Connection conn = credenziali.connessione(); PreparedStatement pstmt = conn.prepareStatement(QUERY)) {
+		try ( PreparedStatement pstmt = conn.prepareStatement(QUERY)) {
 			pstmt.setInt(1, id);
 
 			int affectedRows = pstmt.executeUpdate();
@@ -42,17 +33,17 @@ public class Manager extends Employee {
 
 	}
 
-	public static void visualizzaManager(Credenziali credenziali) {
+	public static void visualizzaManager(Connection conn) {
 
-		String QUERY = "SELECT dipendenti.id_dipendente, dipendenti.nome, dipendenti.cognome," + "dipendenti.stipendio"
+		String QUERY = "SELECT dipendenti.id, dipendenti.nome, dipendenti.cognome," + "dipendenti.stipendio"
 				+ "dipendenti.id_team" + " FROM manager "
-				+ "INNER JOIN dipendenti ON manager.id_dipendente = dipendenti.id_dipendente;";
+				+ "INNER JOIN dipendenti ON manager.id_dipendente = dipendenti.id;";
 
-		try (Connection conn = credenziali.connessione();
+		try (
 				Statement stmt = conn.createStatement();
 				ResultSet rs = stmt.executeQuery(QUERY);) {
 			while (rs.next()) {
-				int id = rs.getInt("id_dipendente");
+				int id = rs.getInt("id");
 				String nome = rs.getString("nome");
 				String cognome = rs.getString("cognome");
 				double stipendio = rs.getInt("stipendio");
@@ -65,14 +56,14 @@ public class Manager extends Employee {
 		}
 	}
 
-	public static void calcolaBonus(Credenziali credenziali, Scanner scanner) {
-		String query = "SELECT dipendenti.id_dipendenti, dipendenti.nome, dipendenti.cognome, dipendenti.stipendio, manager.bonus"
-				+ " FROM dipendenti " + "INNER JOIN manager ON dipendenti.id_dipendenti=manager.id_dipendente";
-		try (Connection conn2 = credenziali.connessione();
-				Statement stmt2 = conn2.createStatement();
+	public static void calcolaBonus(Connection conn, Scanner scanner) {
+		String query = "SELECT dipendenti.id, dipendenti.nome, dipendenti.cognome, dipendenti.stipendio, managers.bonus"
+				+ " FROM dipendenti " + "INNER JOIN managers ON dipendenti.id = managers.id_dipendente";
+		try (
+				Statement stmt2 = conn.createStatement();
 				ResultSet rs2 = stmt2.executeQuery(query);) {
 			while (rs2.next()) {
-				int id = rs2.getInt("id_dipendente");
+				int id = rs2.getInt("id");
 				String nome = rs2.getString("nome");
 				String cognome = rs2.getString("conome");
 				double stipendio = rs2.getDouble("stipendio");

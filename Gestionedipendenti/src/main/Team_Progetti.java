@@ -1,21 +1,23 @@
 package main;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.Scanner;
+import java.sql.*;
 
 public class Team_Progetti
 {
+	
+	/**
+	 * Metodo che mostra tutti i team con i relativi progetti assegnati
+	 *
+	 * @param conn   Apertura della connessione al DB
+	 */
 
-	public static void letturaTeamProgetto(Credenziali credenziali, Scanner scanner)
+	public static void letturaTeamProgetto(Connection conn)
 	{
-		String sql = "SELECT team.nome, progetti.nome, progetti.scadenza  "
+		String sql = "SELECT team.nome, progetti.nome, progetti.scadenza "
 				+ "FROM team_progetti "
-				+ "INNER JOIN team ON team.id_team = team_progetti.id_team "
-				+ "INNER JOIN progetti ON progetti.id_progetto = team_progetti.id_progetti";
-		try (Connection conn = credenziali.connessione();
+				+ "INNER JOIN team ON team.id = team_progetti.id_team "
+				+ "INNER JOIN progetti ON progetti.id = team_progetti.id_progetto";
+		try (
 				Statement stmt = conn.createStatement();
 				ResultSet rs = stmt.executeQuery(sql);)
 		{

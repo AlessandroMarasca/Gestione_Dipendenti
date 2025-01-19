@@ -6,21 +6,6 @@ import java.util.Scanner;
 //CLASSE MADRE
 public class Employee
 {
-	int id;
-	String nome;
-	String cognome;
-	static double stipendioBase;
-	int idTeam;
-
-	public Employee(int id, String nome, String cognome, double stipendioBase, int idTeam)
-	{
-		this.id = id;
-		this.nome = nome;
-		this.cognome = cognome;
-		this.stipendioBase = stipendioBase;
-		this.idTeam = idTeam;
-
-	}
 
 	/**
 	 * Mostra la lista di tutti i records della tabella dipendenti.
@@ -28,17 +13,17 @@ public class Employee
 	 * @param credenziali Apertura della connessione al DB
 	 */
 
-	public static void letturaDatiDipendenti(Credenziali credenziali)
+	public static void letturaDatiDipendenti(Connection conn)
 	{
 		String QUERY = "SELECT * FROM dipendenti";
 
-		try (Connection conn = credenziali.connessione();
+		try (
 				Statement stmt = conn.createStatement();
 				ResultSet rs = stmt.executeQuery(QUERY);)
 		{
 			while (rs.next())
 			{
-				int id = rs.getInt("id_dipendente");
+				int id = rs.getInt("id");
 				String nome = rs.getString("nome");
 				String cognome = rs.getString("cognome");
 				double stipendio = rs.getInt("stipendio");
@@ -60,7 +45,7 @@ public class Employee
 	 * @return L'ID generato per il nuovo dipendente
 	 */
 
-	public static int inserisciNuovoDipendente(Credenziali credenziali, Scanner scanner)
+	public static int inserisciNuovoDipendente(Connection conn, Scanner scanner)
 	{
 
 		System.out.print("Inserisci il nome del dipendente: ");
@@ -75,7 +60,7 @@ public class Employee
 		System.out.print("Inserisci l'ID del team: ");
 		int idTeam = scanner.nextInt();
 		String QUERY = "INSERT INTO dipendenti (nome, cognome, stipendio, id_team) VALUES (?, ?, ?, ?)";
-		try (Connection conn = credenziali.connessione();
+		try (
 				PreparedStatement pstmt = conn.prepareStatement(QUERY, Statement.RETURN_GENERATED_KEYS))
 		{
 
@@ -111,27 +96,27 @@ public class Employee
 	/**
 	 * Inserisce un nuovo dipendente in un team.
 	 *
-	 * @param credenziali   Apertura della connessione al DB
+	 * @param conn   Apertura della connessione al DB
 	 * @param scanner passiamo lo scanner come parametro
 	 */
 
-	public static void assegnaDipendenteTeam(Credenziali credenziali, Scanner scanner)
+	public static void assegnaDipendenteTeam(Connection conn, Scanner scanner)
 	{
 		System.out.print("Inserisci id dipendente a cui vuoi assegnare un team: ");
 		int id = scanner.nextInt();
 		System.out.print("Inserisci id del team: ");
-		int id_team2 = scanner.nextInt();
-		String sql = "UPDATE dipendenti SET id_team=? WHERE id_dipendente=?";
-		try (Connection conn = credenziali.connessione();
+		int id_team = scanner.nextInt();
+		String sql = "UPDATE dipendenti SET id_team=? WHERE id=?";
+		try (
 				PreparedStatement pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS))
 		{
 
-			pstmt.setInt(1, id_team2);
+			pstmt.setInt(1, id_team);
 			pstmt.setInt(2, id);
 			int affectedRows = pstmt.executeUpdate();
 			if (affectedRows > 0)
 			{
-				System.out.println("Dipendente con ID " + id + " assegnato correttamente al team: " + id_team2);
+				System.out.println("Dipendente con ID " + id + " assegnato correttamente al team: " + id_team);
 			} else
 			{
 				System.out.println("Nessun dipendente assegnato. Verificare l'ID.");
@@ -147,19 +132,19 @@ public class Employee
 	/**
 	 * Elimina un dipendente
 	 *
-	 * @param credenziali   Apertura della connessione al DB
+	 * @param conn Apertura della connessione al DB
 	 * @param scanner passiamo lo scanner come parametro
 	 */
 
-	public static void eliminaDipendente(Credenziali credenziali, Scanner scanner)
+	public static void eliminaDipendente(Connection conn, Scanner scanner)
 	{
 		System.out.println("Ecco la lista completa dei dipendenti.");
-		letturaDatiDipendenti(credenziali);
+		letturaDatiDipendenti(conn);
 		System.out.println("Chi desidera eliminare? Inserisci ID per continuare.");
 		int id = scanner.nextInt();
 		scanner.nextLine();
-		try (Connection connect = credenziali.connessione();
-				PreparedStatement psDel = connect.prepareStatement("DELETE FROM dipendenti WHERE id_dipendenti = ?");)
+		try (
+				PreparedStatement psDel = conn.prepareStatement("DELETE FROM dipendenti WHERE id = ?");)
 		{
 			// ResultSet rs = psDel.executeQuery();
 			psDel.setInt(1, id);
@@ -178,16 +163,23 @@ public class Employee
 
 	}
 	
-	public static void modificaStipendio(Credenziali credenziali, Scanner scanner)
+	/**
+	 * Metodo che modifica lo stipendio di un dipendente
+	 *
+	 * @param conn Apertura della connessione al DB
+	 * @param scanner passiamo lo scanner come parametro
+	 */
+	
+	public static void modificaStipendi(Connection conn, Scanner scanner)
 	{
 		
 	System.out.print("A quale dipendente vuoi modificare stipendio? Inserire id:");
 	int id = scanner.nextInt();
 	System.out.print("Inserisci cifra nuovo stipendio");
 	int stipendio= scanner.nextInt();
-	String sql = "UPDATE dipendenti SET stipendio=? WHERE id=?";
-	try (Connection conn = credenziali.connessione();
-			PreparedStatement pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS))
+	String QUERY = "UPDATE dipendenti SET stipendio=? WHERE id=?";
+	try (
+			PreparedStatement pstmt = conn.prepareStatement(QUERY, Statement.RETURN_GENERATED_KEYS))
 	{
 
 		pstmt.setInt(1, stipendio);

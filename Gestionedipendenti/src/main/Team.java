@@ -4,38 +4,62 @@ import java.sql.*;
 import java.util.Scanner;
 
 public class Team {
-	int id_team;
-	String nome;
-	
-	
-	public Team(int id_team,String nome) {
-		this.id_team=id_team;
-		this.nome=nome;
-		
-	}
 	
 	/**
-	 * Metodo che assegna un progetto ad un team
+	 * Metodo per inserire un nuovo team
 	 *
-	 * @param credenziali   Apertura della connessione al DB
+	 * @param conn   Apertura della connessione al DB
 	 * @param scanner passiamo lo scanner come parametro
 	 */
 	
-	public static void letturaDatiTeam(Credenziali credenziali)
+	public static void inserisciNuovoTeam(Connection conn, Scanner scanner)
+	{
+		System.out.print("Inserisci nome del team: ");
+		String nome = scanner.nextLine();
+
+		String QUERY = "INSERT INTO team (nome) VALUES (?);";
+
+		try (PreparedStatement pstmt = conn.prepareStatement(QUERY))
+		{
+			pstmt.setString(1, nome);
+			
+			int affectedRows = pstmt.executeUpdate();
+
+			if (affectedRows == 0)
+			{
+				throw new SQLException("Inserimento fallito, nessuna riga aggiunta.");
+			} else
+			{
+				System.out.println("Team aggiunto con successo.");
+			}
+
+		} catch (SQLException e)
+		{
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * Metodo che visualizza tutti i team
+	 *
+	 * @param conn   Apertura della connessione al DB
+	 */
+	
+	public static void letturaDatiTeam(Connection conn)
 	{
 		String QUERY = "SELECT * FROM Team";
 
-		try (Connection conn = credenziali.connessione();
+		try (
 				Statement stmt = conn.createStatement();
 				ResultSet rs = stmt.executeQuery(QUERY);)
 		{
 			while (rs.next())
 			{
-				int id_team = rs.getInt("id_team");
+				int id_team = rs.getInt("id");
 				String nome = rs.getString("nome");
 				
 
-				System.out.printf("id: %d | nome: %s | cognome: %s | stipendio: %.2f\n", id_team, nome);
+				System.out.printf("id: %d | nome: %s", id_team, nome);
 
 			}
 		} catch (SQLException e)
@@ -44,14 +68,19 @@ public class Team {
 		}
 	}
 	
+	/**
+	 * Metodo che assegna un progetto ad un team
+	 *
+	 * @param conn   Apertura della connessione al DB
+	 * @param scanner passiamo lo scanner come parametro
+	 */
 	
-	
-	public static void assegnaTeamProgetto(Credenziali credenziali, Scanner scanner) {
+	public static void assegnaTeamProgetto(Connection conn, Scanner scanner) {
 		
 		System.out.println("Ecco la lista completa dei team.");
-		letturaDatiTeam(credenziali);
+		letturaDatiTeam(conn);
 		System.out.println("Ecco la lista completa dei progetti");
-		Progetti.letturaDatiProgetto(credenziali);
+		Progetti.letturaDatiProgetto(conn);
 		
 		
 		System.out.print("Inserisci id del progetto che vuoi selezionare: ");
@@ -62,8 +91,8 @@ public class Team {
 		int id_team=scanner.nextInt();
 		scanner.nextLine();
 		
-		String sql = "INSERT INTO team_progetti(id_team,id_progetti) VALUES (?,?)";
-		try (Connection conn = credenziali.connessione();
+		String sql = "INSERT INTO team_progetti(id_team, id_progetto) VALUES (?,?)";
+		try (
 				PreparedStatement pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS))
 		{
 
@@ -85,12 +114,19 @@ public class Team {
 		
 	}
 	
-public static void modificaTeamProgetto(Scanner scanner, Credenziali credenziali) {
+	/**
+	 * Metodo che assegna un diverso progetto ad un team
+	 *
+	 * @param conn   Apertura della connessione al DB
+	 * @param scanner passiamo lo scanner come parametro
+	 */
+	
+public static void modificaTeamProgetto(Connection conn, Scanner scanner) {
 		
 		System.out.println("Ecco la lista completa dei team.");
-		letturaDatiTeam(credenziali);
+		letturaDatiTeam(conn);
 		System.out.println("Ecco la lista completa dei progetti");
-		Progetti.letturaDatiProgetto(credenziali);
+		Progetti.letturaDatiProgetto(conn);
 		System.out.print("Seleziona un progetto: ");
 		int id_progetto=scanner.nextInt();
 		scanner.nextLine();
@@ -100,7 +136,7 @@ public static void modificaTeamProgetto(Scanner scanner, Credenziali credenziali
 		scanner.nextLine();
 		
 		String sql = "UPDATE team_progetti SET id_team=? WHERE id_progetto=?";
-		try (Connection conn = credenziali.connessione();
+		try (
 				PreparedStatement pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS))
 		{
 

@@ -13,7 +13,7 @@ public class Progetti
 	 * @param scanner passiamo lo scanner come parametro
 	 */
 	
-	public static void inserisciProgetto(Credenziali credenziali, Scanner scanner)
+	public static void inserisciProgetto(Connection conn, Scanner scanner)
 	{
 		System.out.print("Inserisci nome del progetto: ");
 		String nome = scanner.nextLine();
@@ -23,7 +23,7 @@ public class Progetti
 
 		String QUERY = "INSERT INTO progetti (nome, scadenza) VALUES (?,?);";
 
-		try (Connection conn = credenziali.connessione(); PreparedStatement pstmt = conn.prepareStatement(QUERY))
+		try (PreparedStatement pstmt = conn.prepareStatement(QUERY))
 		{
 			pstmt.setString(1, nome);
 			pstmt.setString(2, scadenza);
@@ -43,21 +43,28 @@ public class Progetti
 			e.printStackTrace();
 		}
 	}
-	public static void letturaDatiProgetto(Credenziali credenziali)
+	
+	/**
+	 * Metodo di lettura di tutti i progetti
+	 *
+	 * @param conn   Apertura della connessione al DB
+	 */
+
+	public static void letturaDatiProgetto(Connection conn)
 	{
 		String QUERY = "SELECT * FROM progetti";
 
-		try (Connection conn = credenziali.connessione();
+		try (
 				Statement stmt = conn.createStatement();
 				ResultSet rs = stmt.executeQuery(QUERY);)
 		{
 			while (rs.next())
 			{
-				int id_progetto = rs.getInt("id_progetto");
+				int id_progetto = rs.getInt("id");
 				String nome = rs.getString("nome");
 				String scadenza = rs.getString("scadenza");
 
-				System.out.printf("id: %d | nome: %s | cognome: %s | stipendio: %.2f\n", id_progetto, nome,scadenza);
+				System.out.printf("id: %d | nome: %s | scadenza: %s\n", id_progetto, nome,scadenza);
 
 			}
 		} catch (SQLException e)

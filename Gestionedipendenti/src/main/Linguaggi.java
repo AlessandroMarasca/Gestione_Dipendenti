@@ -13,7 +13,7 @@ public class Linguaggi
 	 * @return L'ID generato per il nuovo dipendente
 	 */
 
-	public static void assegnaLinguaggioDev(Credenziali credenziali, Scanner scanner)
+	public static void assegnaLinguaggioDev(Connection conn, Scanner scanner)
 	{
 		System.out.print("Inserisci l'ID del dipendente: ");
 		int id = scanner.nextInt();
@@ -29,7 +29,7 @@ public class Linguaggi
 
 		String QUERY = "INSERT INTO linguaggi_developer (id_developer, id_linguaggio, esperienza) VALUES (?,?,?);";
 
-		try (Connection conn = credenziali.connessione(); PreparedStatement pstmt = conn.prepareStatement(QUERY))
+		try ( PreparedStatement pstmt = conn.prepareStatement(QUERY))
 		{
 			pstmt.setInt(1, id);
 			pstmt.setInt(2, idLinguaggio);
