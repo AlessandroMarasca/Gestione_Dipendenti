@@ -1,5 +1,6 @@
 package main;
 
+
 import java.sql.*;
 import java.util.Scanner;
 
@@ -12,7 +13,7 @@ public class Developer extends Employee
 	 * @param conn  Apertura della connessione al DB
 	 * @param scanner passiamo lo scanner come parametro
 	 */
-
+	
 	public static void assegnaDipendenteDev(Connection conn, Scanner scanner)
 	{
 		System.out.print("Inserisci l'ID del dipendente developer: ");
@@ -76,4 +77,5 @@ public class Developer extends Employee
 			e.printStackTrace();
 		}
 	}
+
 }

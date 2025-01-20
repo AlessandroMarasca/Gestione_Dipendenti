@@ -31,6 +31,7 @@ public class Main
 
 			try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD))
 			{
+
 				Menu.menu(conn, scanner);
 				connesso = true;
 			} catch (SQLException e)

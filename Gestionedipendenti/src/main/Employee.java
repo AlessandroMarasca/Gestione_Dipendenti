@@ -17,9 +17,7 @@ public class Employee
 	{
 		String QUERY = "SELECT * FROM dipendenti";
 
-		try (
-				Statement stmt = conn.createStatement();
-				ResultSet rs = stmt.executeQuery(QUERY);)
+		try (Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery(QUERY);)
 		{
 			while (rs.next())
 			{
@@ -40,8 +38,11 @@ public class Employee
 	/**
 	 * Inserisce un nuovo dipendente nella tabella dipendenti.
 	 *
+	 * @param nome          Nome del dipendente
+	 * @param cognome       Cognome del dipendente
+	 * @param stipendioBase Stipendio del dipendente
+	 * @param idTeam        Team a cui appartiene
 	 * @param credenziali   Apertura della connessione al DB
-	 * @param scanner passiamo lo scanner come parametro
 	 * @return L'ID generato per il nuovo dipendente
 	 */
 
@@ -60,8 +61,7 @@ public class Employee
 		System.out.print("Inserisci l'ID del team: ");
 		int idTeam = scanner.nextInt();
 		String QUERY = "INSERT INTO dipendenti (nome, cognome, stipendio, id_team) VALUES (?, ?, ?, ?)";
-		try (
-				PreparedStatement pstmt = conn.prepareStatement(QUERY, Statement.RETURN_GENERATED_KEYS))
+		try (PreparedStatement pstmt = conn.prepareStatement(QUERY, Statement.RETURN_GENERATED_KEYS))
 		{
 
 			pstmt.setString(1, nome);
@@ -92,22 +92,24 @@ public class Employee
 		}
 		return -1; // In caso di errore
 	}
-	
+
 	/**
 	 * Inserisce un nuovo dipendente in un team.
 	 *
-	 * @param conn   Apertura della connessione al DB
+	 * @param conn    Apertura della connessione al DB
 	 * @param scanner passiamo lo scanner come parametro
 	 */
 
 	public static void assegnaDipendenteTeam(Connection conn, Scanner scanner)
+
 	{
-		System.out.print("Inserisci id dipendente a cui vuoi assegnare un team: ");
+		System.out.println("Inserisci id dipendente a cui vuoi assegnare un team:");
 		int id = scanner.nextInt();
 		System.out.print("Inserisci id del team: ");
 		int id_team = scanner.nextInt();
 		String sql = "UPDATE dipendenti SET id_team=? WHERE id=?";
 		try (
+
 				PreparedStatement pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS))
 		{
 
@@ -128,11 +130,11 @@ public class Employee
 		}
 
 	}
-	
+
 	/**
 	 * Elimina un dipendente
 	 *
-	 * @param conn Apertura della connessione al DB
+	 * @param conn    Apertura della connessione al DB
 	 * @param scanner passiamo lo scanner come parametro
 	 */
 
@@ -143,8 +145,7 @@ public class Employee
 		System.out.println("Chi desidera eliminare? Inserisci ID per continuare.");
 		int id = scanner.nextInt();
 		scanner.nextLine();
-		try (
-				PreparedStatement psDel = conn.prepareStatement("DELETE FROM dipendenti WHERE id = ?");)
+		try (PreparedStatement psDel = conn.prepareStatement("DELETE FROM dipendenti WHERE id = ?");)
 		{
 			// ResultSet rs = psDel.executeQuery();
 			psDel.setInt(1, id);
@@ -162,43 +163,40 @@ public class Employee
 		}
 
 	}
-	
+
 	/**
 	 * Metodo che modifica lo stipendio di un dipendente
 	 *
-	 * @param conn Apertura della connessione al DB
+	 * @param conn    Apertura della connessione al DB
 	 * @param scanner passiamo lo scanner come parametro
 	 */
-	
+
 	public static void modificaStipendi(Connection conn, Scanner scanner)
 	{
-		
-	System.out.print("A quale dipendente vuoi modificare stipendio? Inserire id:");
-	int id = scanner.nextInt();
-	System.out.print("Inserisci cifra nuovo stipendio");
-	int stipendio= scanner.nextInt();
-	String QUERY = "UPDATE dipendenti SET stipendio=? WHERE id=?";
-	try (
-			PreparedStatement pstmt = conn.prepareStatement(QUERY, Statement.RETURN_GENERATED_KEYS))
-	{
 
-		pstmt.setInt(1, stipendio);
-		pstmt.setInt(2, id);
-		int affectedRows = pstmt.executeUpdate();
-		if (affectedRows > 0)
+		System.out.print("A quale dipendente vuoi modificare stipendio? Inserire id:");
+		int id = scanner.nextInt();
+		System.out.print("Inserisci cifra nuovo stipendio");
+		int stipendio = scanner.nextInt();
+		String QUERY = "UPDATE dipendenti SET stipendio=? WHERE id=?";
+		try (PreparedStatement pstmt = conn.prepareStatement(QUERY, Statement.RETURN_GENERATED_KEYS))
 		{
-			System.out.println("Stipendio modificato correttamente per dipendente con ID " + id );
-		} else
+
+			pstmt.setInt(1, stipendio);
+			pstmt.setInt(2, id);
+			int affectedRows = pstmt.executeUpdate();
+			if (affectedRows > 0)
+			{
+				System.out.println("Stipendio modificato correttamente per dipendente con ID " + id);
+			} else
+			{
+				System.out.println("Nessun dipendente trovato. Verificare l'ID.");
+			}
+
+		} catch (SQLException e)
 		{
-			System.out.println("Nessun dipendente trovato. Verificare l'ID.");
+			e.printStackTrace();
 		}
-
-	} catch (SQLException e)
-	{
-		e.printStackTrace();
-	}
-
-	
 
 	}
 }

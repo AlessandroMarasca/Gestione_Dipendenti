@@ -3,15 +3,16 @@ package main;
 import java.sql.*;
 import java.util.Scanner;
 
-public class Team {
-	
+public class Team
+{
+
 	/**
 	 * Metodo per inserire un nuovo team
 	 *
-	 * @param conn   Apertura della connessione al DB
+	 * @param conn    Apertura della connessione al DB
 	 * @param scanner passiamo lo scanner come parametro
 	 */
-	
+
 	public static void inserisciNuovoTeam(Connection conn, Scanner scanner)
 	{
 		System.out.print("Inserisci nome del team: ");
@@ -22,7 +23,7 @@ public class Team {
 		try (PreparedStatement pstmt = conn.prepareStatement(QUERY))
 		{
 			pstmt.setString(1, nome);
-			
+
 			int affectedRows = pstmt.executeUpdate();
 
 			if (affectedRows == 0)
@@ -38,26 +39,23 @@ public class Team {
 			e.printStackTrace();
 		}
 	}
-	
+
 	/**
 	 * Metodo che visualizza tutti i team
 	 *
-	 * @param conn   Apertura della connessione al DB
+	 * @param conn Apertura della connessione al DB
 	 */
-	
+
 	public static void letturaDatiTeam(Connection conn)
 	{
 		String QUERY = "SELECT * FROM Team";
 
-		try (
-				Statement stmt = conn.createStatement();
-				ResultSet rs = stmt.executeQuery(QUERY);)
+		try (Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery(QUERY);)
 		{
 			while (rs.next())
 			{
 				int id_team = rs.getInt("id");
 				String nome = rs.getString("nome");
-				
 
 				System.out.printf("id: %d | nome: %s", id_team, nome);
 
@@ -67,32 +65,31 @@ public class Team {
 			e.printStackTrace();
 		}
 	}
-	
+
 	/**
 	 * Metodo che assegna un progetto ad un team
 	 *
-	 * @param conn   Apertura della connessione al DB
+	 * @param conn    Apertura della connessione al DB
 	 * @param scanner passiamo lo scanner come parametro
 	 */
-	
-	public static void assegnaTeamProgetto(Connection conn, Scanner scanner) {
-		
+
+	public static void assegnaTeamProgetto(Connection conn, Scanner scanner)
+	{
+
 		System.out.println("Ecco la lista completa dei team.");
 		letturaDatiTeam(conn);
 		System.out.println("Ecco la lista completa dei progetti");
 		Progetti.letturaDatiProgetto(conn);
-		
-		
+
 		System.out.print("Inserisci id del progetto che vuoi selezionare: ");
-		int id_progetto=scanner.nextInt();
+		int id_progetto = scanner.nextInt();
+		System.out.println("A quale team vuoi assegnarlo?");
+		int id_team = scanner.nextInt();
 		scanner.nextLine();
-		
-		System.out.print("A quale team vuoi assegnarlo?: ");
-		int id_team=scanner.nextInt();
-		scanner.nextLine();
-		
+
 		String sql = "INSERT INTO team_progetti(id_team, id_progetto) VALUES (?,?)";
 		try (
+
 				PreparedStatement pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS))
 		{
 
@@ -111,33 +108,32 @@ public class Team {
 		{
 			e.printStackTrace();
 		}
-		
 	}
-	
+
 	/**
 	 * Metodo che assegna un diverso progetto ad un team
 	 *
-	 * @param conn   Apertura della connessione al DB
+	 * @param conn    Apertura della connessione al DB
 	 * @param scanner passiamo lo scanner come parametro
 	 */
-	
-public static void modificaTeamProgetto(Connection conn, Scanner scanner) {
-		
+
+	public static void modificaTeamProgetto(Connection conn, Scanner scanner)
+	{
+
 		System.out.println("Ecco la lista completa dei team.");
 		letturaDatiTeam(conn);
 		System.out.println("Ecco la lista completa dei progetti");
 		Progetti.letturaDatiProgetto(conn);
 		System.out.print("Seleziona un progetto: ");
-		int id_progetto=scanner.nextInt();
+		int id_progetto = scanner.nextInt();
 		scanner.nextLine();
-		
+
 		System.out.print("A quale team vuoi assegnarlo?: ");
-		int id_team=scanner.nextInt();
+		int id_team = scanner.nextInt();
 		scanner.nextLine();
-		
+
 		String sql = "UPDATE team_progetti SET id_team=? WHERE id_progetto=?";
-		try (
-				PreparedStatement pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS))
+		try (PreparedStatement pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS))
 		{
 
 			pstmt.setInt(1, id_team);
@@ -155,8 +151,7 @@ public static void modificaTeamProgetto(Connection conn, Scanner scanner) {
 		{
 			e.printStackTrace();
 		}
-		
-	}
 
+	}
 
 }
