@@ -9,7 +9,7 @@ public class Progetti
 	/**
 	 * Metodo per inserire un nuovo progetto
 	 *
-	 * @param credenziali   Apertura della connessione al DB
+	 * @param conn   Apertura della connessione al DB
 	 * @param scanner passiamo lo scanner come parametro
 	 */
 	

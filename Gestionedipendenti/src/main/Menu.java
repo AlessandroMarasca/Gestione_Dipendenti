@@ -6,10 +6,12 @@ import java.sql.*;
 public class Menu
 {
 
-	public static void accesso()
-	{
-		System.out.print("Benvenuto");
-	}
+	/**
+	 * Metodo per far partire il programma
+	 *
+	 * @param conn   Apertura della connessione al DB
+	 * @param scanner passiamo lo scanner come parametro
+	 */
 
 	public static void menu(Connection conn, Scanner scanner)
 	{
@@ -32,7 +34,7 @@ public class Menu
 					+ "10) Visualizza team e relativi progetti assegnati\n" + "11) Aggiungi nuovo progetto\n"
 					+ "12) Assegna ruolo manager\n" + "13) Visualizza elenco managers\n"
 					+ "14) Calcola stipendi managers\n" + "15) Modifica stipendio di un dipendente\n" + VERDE
-					+ "16) Creazione tabelle\n" + RESET + ROSSO + "17) Elimina tutte le tabelle\n" + RESET
+					+ "20) Creazione tabelle\n" + RESET + ROSSO + "30) Elimina tutte le tabelle\n" + RESET
 					+ "50) Esci");
 
 			System.out.print("\nInserisci la tua scelta: ");

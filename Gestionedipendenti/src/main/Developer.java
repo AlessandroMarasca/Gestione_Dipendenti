@@ -54,7 +54,7 @@ public class Developer extends Employee
 
 		String QUERY = "SELECT dipendenti.id, dipendenti.nome, dipendenti.cognome,"
 				+ "dipendenti.stipendio," + "dipendenti.id_team" + " FROM developers "
-				+ "INNER JOIN dipendenti ON developers.id_dipendente = dipendenti.id;";
+				+ "INNER JOIN developers ON developers.id_dipendente = dipendenti.id;";
 
 		try (
 				Statement stmt = conn.createStatement();
@@ -62,7 +62,7 @@ public class Developer extends Employee
 		{
 			while (rs.next())
 			{
-				int id = rs.getInt("id_dipendente");
+				int id = rs.getInt("id");
 				String nome = rs.getString("nome");
 				String cognome = rs.getString("cognome");
 				double stipendio = rs.getInt("stipendio");
